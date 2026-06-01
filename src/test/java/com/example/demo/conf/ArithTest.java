@@ -1,94 +1,89 @@
 package com.example.demo.conf;
 
-import com.example.demo.service.ArithService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RequiredArgsConstructor
+import com.example.demo.service.ArithService;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
 public class ArithTest {
-    private final ArithService arithservice;
 
-    //ADD
-    @Test
-    void addTwoPositiveNumber(){
-        assertEquals(8, arithservice.add(3,5));
-    }
+  @InjectMocks private ArithService arithservice;
 
-    @Test
-    void addWithZero() {
-        assertEquals(5, arithservice.add(5, 0));
-    }
+  // ADD
+  @Test
+  void addTwoPositiveNumber() {
+    assertEquals(8L, arithservice.add(3L, 5L));
+  }
 
-    @Test
-    void addWithTwoZeros() {
-        assertEquals(0, arithservice.add(0, 0));
-    }
+  @Test
+  void addWithZero() {
+    assertEquals(5L, arithservice.add(5L, 0L));
+  }
 
-    @Test
-    void addNegativeNuber() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> arithservice.add(-5, 3)
-        );
-    }
+  @Test
+  void addWithTwoZeros() {
+    assertEquals(0L, arithservice.add(0L, 0L));
+  }
 
-    @Test
-    void shouldThrowExceptionWhenAddingNegativeNumber() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> arithservice.add(-5, 3)
-        );
-    }
+  @Test
+  void addNegativeNuber() {
+    assertThrows(IllegalArgumentException.class, () -> arithservice.add(-5L, 3L));
+  }
 
-    //SUBSTRACT
-    @Test
-    void subtractTwoPositiveNumbers() {
-        assertEquals(5, arithservice.substract(10, 5));
-    }
+  @Test
+  void shouldThrowExceptionWhenAddingNegativeNumber() {
+    assertThrows(IllegalArgumentException.class, () -> arithservice.add(-5L, 3L));
+  }
 
-    @Test
-    void shouldReturnZeroWhenNumbersAreEqual() {
-        assertEquals(0, arithservice.substract(5, 5));
-    }
+  // SUBSTRACT
+  @Test
+  void subtractTwoPositiveNumbers() {
+    assertEquals(5L, arithservice.substract(10L, 5L));
+  }
 
-    //multiply
-    @Test
-    void multiplyTwoPrince() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> arithservice.substract(3, 5)
-        );
-    }
+  @Test
+  void substractSameNumber() {
+    assertEquals(0L, arithservice.substract(5L, 5L));
+  }
 
-    @Test
-    void shouldThrowExceptionWhenSubtractingNegativeNumber() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> arithservice.substract(-3, 5)
-        );
-    }
+  @Test
+  void substractAsc() {
+    assertThrows(IllegalArgumentException.class, () -> arithservice.substract(3L, 5L));
+  }
 
-    @Test
-    void shouldMultiplyTwoPositiveNumbers() {
-        assertEquals(20, arithservice.multiply(4, 5));
-    }
+  @Test
+  void multiplyWithNegative() {
+    assertThrows(IllegalArgumentException.class, () -> arithservice.substract(-3L, 5L));
+  }
 
-    @Test
-    void shouldMultiplyByZero() {
-        assertEquals(0, arithservice.multiply(5, 0));
-    }
+  @Test
+  void multiplyWithPositive() {
+    assertEquals(20, arithservice.multiply(4, 5));
+  }
 
-    @Test
-    void shouldThrowExceptionWhenMultiplyingNegativeNumber() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> arithservice.multiply(-4, 5)
-        );
-    }
+  @Test
+  void multiplyWithZero() {
+    assertEquals(0, arithservice.multiply(5, 0));
+  }
 
+  // Divide
+  @Test
+  void divideTwoPositiveNumber() {
+    assertEquals(5.0, arithservice.divide(10, 2));
+  }
 
+  @Test
+  void divideWithZero() {
+    assertThrows(IllegalArgumentException.class, () -> arithservice.divide(5L, 0L));
+  }
+
+  @Test
+  void divideWithNegative() {
+    assertThrows(IllegalArgumentException.class, () -> arithservice.divide(-10L, 2L));
+  }
 }
